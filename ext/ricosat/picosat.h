@@ -655,4 +655,8 @@ void picosat_write_rup_trace (PicoSAT *, FILE * trace_file);
 
 int picosat_usedlit (PicoSAT *, int lit);
 /*------------------------------------------------------------------------*/
+
+typedef void (*picosat_error_cb_t)(const char * msg);
+void picosat_set_error_handler(picosat_error_cb_t h);
+
 #endif

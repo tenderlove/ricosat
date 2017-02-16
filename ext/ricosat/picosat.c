@@ -192,18 +192,24 @@ typedef uintptr_t Wrd;
 #define AVERAGE(a,b) ((b) ? (((double)a) / (double)(b)) : 0.0)
 #define PERCENT(a,b) (100.0 * AVERAGE(a,b))
 
+static void default_error_handler(const char *msg)
+{
 #ifndef RCODE
-#define ABORT(msg) \
-  do { \
-    fputs ("*** picosat: " msg "\n", stderr); \
-    abort (); \
-  } while (0)
+    fputs ("*** picosat: ", stderr);
+    fputs (msg, stderr);
+    fputs ("\n", stderr);
+    abort ();
 #else
+    Rf_error (msg);
+#endif
+}
+
+static picosat_error_cb_t error_handler = &default_error_handler;
+
 #define ABORT(msg) \
   do { \
-    Rf_error (msg); \
+      (*error_handler)(msg); \
   } while (0)
-#endif
 
 #define ABORTIF(cond,msg) \
   do { \
@@ -8499,4 +8505,9 @@ picosat_deref_partial (PS * ps, int int_lit)
     minautarky (ps);
 
   return pderef (ps, int_lit);
+}
+
+void picosat_set_error_handler(picosat_error_cb_t h)
+{
+    error_handler = h;
 }
