@@ -20,6 +20,9 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 ****************************************************************************/
 
+#define STATS
+#define TRACE
+
 #ifndef picosat_h_INCLUDED
 #define picosat_h_INCLUDED
 
