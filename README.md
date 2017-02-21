@@ -1,26 +1,70 @@
 # ricosat
 
-* FIX (url)
+* https://github.com/tenderlove/ricosat
 
 ## DESCRIPTION:
 
-FIX (describe your package)
+RicoSAT is a wrapper around [PicoSAT](http://fmv.jku.at/picosat/).  It lets
+you use the PicoSAT solver from Ruby!
 
 ## FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* It's a SAT solver!  Not SAT like the tests, but the [Boolean satisfiability problem](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem)
 
 ## SYNOPSIS:
 
-  FIX (code sample of usage)
+Solve the problem (A and NOT B):
 
-## REQUIREMENTS:
+```ruby
+A = 1
+B = 2
 
-* FIX (list of requirements)
+sat = RicoSAT.new
+sat.add(A); sat.add(0)  # Rules must always end with 0
+sat.add(-B); sat.add(0) # Negative means "not"
+
+case sat.solve(-1)
+when RicoSAT::SATISFIABLE
+  sat.variables.times.each do |i|
+    p((i + 1) => sat.deref(i + 1))
+  end
+when RicoSAT::UNSATISFIABLE
+  raise "idk"
+else
+end
+```
+
+A is true, and B is false.
+
+Solve the problem (A and NOT A):
+
+```ruby
+A = 1
+
+sat = RicoSAT.new
+sat.enable_trace_generation # Get access to SAT proofs
+sat.add(A); sat.add(0)  # Rules must always end with 0
+sat.add(-A); sat.add(0) # Negative means "not"
+
+case sat.solve(-1)
+when RicoSAT::SATISFIABLE
+  raise "should not work"
+when RicoSAT::UNSATISFIABLE
+  sat.added_original_clauses.times do |i|
+    if sat.coreclause(i) == 1
+      p [:clause, i, sat.corelit(1)]
+    end
+  end
+  sat.write_extended_trace $stdout
+else
+end
+```
+
+It's not solvable!
 
 ## INSTALL:
 
-* FIX (sudo gem install, anything else)
+* gem install ricosat
 
 ## LICENSE:
 

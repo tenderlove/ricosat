@@ -6,7 +6,7 @@ VALUE cRicoSat;
 
 static const rb_data_type_t RicoSatType = {
     "RicoStat",
-    { 0, picosat_reset, 0 },
+    { 0, (void (*)(void *))picosat_reset, 0 },
     0, 0, RUBY_TYPED_FREE_IMMEDIATELY
 };
 
@@ -164,7 +164,7 @@ void error_cb(const char *m) {
 }
 
 void Init_ricosat() {
-    cRicoSat = rb_define_class("RicoSat", rb_cObject);
+    cRicoSat = rb_define_class("RicoSAT", rb_cObject);
     rb_define_alloc_func(cRicoSat, allocate);
     picosat_set_error_handler(error_cb);
 

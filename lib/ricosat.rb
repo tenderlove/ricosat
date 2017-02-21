@@ -1,5 +1,5 @@
 require 'ricosat.so'
 
-class Ricosat
+class RicoSAT
   VERSION = '1.0.0'
 end
