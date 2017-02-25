@@ -6,6 +6,5 @@ ext/ricosat/extconf.rb
 ext/ricosat/picosat.c
 ext/ricosat/picosat.h
 ext/ricosat/ricosat.c
-lib/ricosat.bundle
 lib/ricosat.rb
 test/test_ricosat.rb

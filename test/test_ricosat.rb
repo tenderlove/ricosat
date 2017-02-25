@@ -137,4 +137,10 @@ class TestRicosat < MiniTest::Test
       flunk "should be satisfiable"
     end
   end
+
+  def test_set_default_phase
+    sat = RicoSAT.new
+    sat.add(1); sat.add(0)
+    assert sat.set_default_phase 1, 1
+  end
 end
