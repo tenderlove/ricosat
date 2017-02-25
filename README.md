@@ -11,6 +11,18 @@ you use the PicoSAT solver from Ruby!
 
 * It's a SAT solver!  Not SAT like the tests, but the [Boolean satisfiability problem](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem)
 
+## INSTALLATION:
+
+PicoSAT depends on [gmp](https://gmplib.org) and
+[gperftools](https://github.com/gperftools/gperftools). On a Mac, these can be
+installed in one shot with homebrew via `brew install gmp gperftools`.
+
+Once you have those:
+
+``` ruby
+$ gem install ricosat
+```
+
 ## SYNOPSIS:
 
 Solve the problem (A and NOT B):
