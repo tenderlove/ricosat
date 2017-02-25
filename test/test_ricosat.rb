@@ -143,4 +143,16 @@ class TestRicosat < MiniTest::Test
     sat.add(1); sat.add(0)
     assert sat.set_default_phase 1, 1
   end
+
+  def test_reset_phases
+    sat = RicoSAT.new
+    sat.add(1); sat.add(0)
+    assert sat.reset_phases
+  end
+
+  def test_reset_scores
+    sat = RicoSAT.new
+    sat.add(1); sat.add(0)
+    assert sat.reset_scores
+  end
 end

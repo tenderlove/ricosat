@@ -166,6 +166,22 @@ static VALUE set_global_default_phase(VALUE self, VALUE val)
     return self;
 }
 
+static VALUE reset_phases(VALUE self)
+{
+    PicoSAT * sat;
+    TypedData_Get_Struct(self, PicoSAT, &RicoSatType, sat);
+    picosat_reset_phases(sat);
+    return self;
+}
+
+static VALUE reset_scores(VALUE self)
+{
+    PicoSAT * sat;
+    TypedData_Get_Struct(self, PicoSAT, &RicoSatType, sat);
+    picosat_reset_scores(sat);
+    return self;
+}
+
 void error_cb(const char *m) {
     rb_raise(rb_eRuntimeError, "%s", m);
 }
@@ -197,6 +213,8 @@ void Init_ricosat() {
     rb_define_method(cRicoSat, "coreclause", coreclause, 1);
     rb_define_method(cRicoSat, "added_original_clauses", added_original_clauses, 0);
     rb_define_method(cRicoSat, "global_default_phase=", set_global_default_phase, 1);
+    rb_define_method(cRicoSat, "reset_phases", reset_phases, 0);
+    rb_define_method(cRicoSat, "reset_scores", reset_scores, 0);
 }
 
 /* vim: set sws=4 noet: */
