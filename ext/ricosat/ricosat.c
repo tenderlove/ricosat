@@ -43,6 +43,13 @@ static VALUE set_less_important_lit(VALUE self, VALUE lit) {
     return self;
 }
 
+static VALUE set_default_phase(VALUE self, VALUE lit, VALUE val) {
+    PicoSAT * sat;
+    TypedData_Get_Struct(self, PicoSAT, &RicoSatType, sat);
+    picosat_set_default_phase_lit(sat, NUM2INT(lit), NUM2INT(val));
+    return self;
+}
+
 static VALUE inc_max_var(VALUE self) {
     PicoSAT * sat;
     TypedData_Get_Struct(self, PicoSAT, &RicoSatType, sat);
@@ -173,8 +180,9 @@ void Init_ricosat() {
     rb_define_const(cRicoSat, "UNSATISFIABLE", INT2NUM(PICOSAT_UNSATISFIABLE));
     rb_define_method(cRicoSat, "measure_all_calls", measure_all_calls, 0);
     rb_define_method(cRicoSat, "verbosity=", set_verbosity, 1);
-    rb_define_method(cRicoSat, "more_important_lit", set_more_important_lit, 1);
-    rb_define_method(cRicoSat, "less_important_lit", set_less_important_lit, 1);
+    rb_define_method(cRicoSat, "more_important", set_more_important_lit, 1);
+    rb_define_method(cRicoSat, "less_important", set_less_important_lit, 1);
+    rb_define_method(cRicoSat, "set_default_phase", set_default_phase, 2);
     rb_define_method(cRicoSat, "inc_max_var", inc_max_var, 0);
     rb_define_method(cRicoSat, "add", add, 1);
     rb_define_method(cRicoSat, "solve", solve, 1);
